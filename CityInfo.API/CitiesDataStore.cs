@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CityInfo.API.Models;
-
-namespace CityInfo.API
+﻿namespace CityInfo.API
 {
+    using System.Collections.Generic;
+
+    using CityInfo.API.Models;
+
     public class CitiesDataStore
     {
         public static CitiesDataStore Current { get; } = new CitiesDataStore();
@@ -19,7 +17,22 @@ namespace CityInfo.API
                 {
                     Id = 1,
                     Name = "New York City",
-                    Description = "The biggest of apples"
+                    Description = "The biggest of apples",
+                    PointsofInterest = new List<PointOfInterestDto>()
+                    {
+                        new PointOfInterestDto()
+                        {
+                            Id = 1,
+                            Name = "Central Park",
+                            Description = "It's big"
+                        },
+                        new PointOfInterestDto()
+                        {
+                            Id = 2,
+                            Name = "Empire State Building",
+                            Description = "It's tall"
+                        }
+                    }
                 },
                 new CityDto()
                 {
