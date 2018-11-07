@@ -4,15 +4,15 @@
 
     using Microsoft.AspNetCore.Mvc;
 
+    [Route("api/cities")]
     public class CitiesController : Controller
-    {
-        [HttpGet("api/cities")]
+    {        
         public IActionResult GetCities()
         {
             return Ok(CitiesDataStore.Current.Cities);
         }
 
-        [HttpGet("api/cities/{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetCity(int id)
         {
             var citytoReturn = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == id);
