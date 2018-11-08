@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using CityInfo.API.Models;
+    using CityInfo.API.Services;
     using Microsoft.AspNetCore.JsonPatch;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
@@ -11,10 +12,13 @@
     public class PointsofInterestController : Controller
     {
         private ILogger<PointsofInterestController> _logger;
+        private IMailService _mailService;
 
-        public PointsofInterestController(ILogger<PointsofInterestController> logger)
+        public PointsofInterestController(ILogger<PointsofInterestController> logger, 
+            IMailService mailService)
         {
             _logger = logger;
+            _mailService = mailService;
         }
 
         [HttpGet("{cityId}/pointsofinterest")]
@@ -216,6 +220,9 @@
             }
 
             city.PointsofInterest.Remove(pontOfInterestFromStore);
+
+            _mailService.Send("Point of interested deleted.",
+                $"Point of interest {pontOfInterestFromStore.Name} with id {pontOfInterestFromStore.Id} was deleted");
 
             return NoContent();
         }
